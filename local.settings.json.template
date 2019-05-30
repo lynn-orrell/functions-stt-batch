@@ -1,0 +1,9 @@
+{
+    "IsEncrypted": false,
+    "Values": {
+        "AzureWebJobsStorage": "[YOUR STORAGE LOCATION]",
+        "FUNCTIONS_WORKER_RUNTIME": "dotnet",
+        "SpeechRegion": "[YOUR SPEECH REGION (e.g., centralus, westus)]",
+        "SpeechKey": "[YOUR SPEECH KEY]"
+    }
+}

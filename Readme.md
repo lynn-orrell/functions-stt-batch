@@ -1,0 +1,26 @@
+# Quick (and dirty) Setup
+
+- Provision v2 Blob Storage
+  - Create 2 containers
+    - audio
+    - transcriptions
+  - Add a new event subscription
+    - Event Types: Blob Created
+    - Endpoint Type: Web Hook
+      - Subscriber Endpoint: https://[your function endpoint]/runtime/webhooks/EventGrid?functionName=TranscribeAudio
+    - Filters
+      - Enable Subject Filtering
+        - Subject Ends With: .wav
+- Provision Speech resource
+- Clone repository
+- If running locally
+  - Replace values in local.settings.json.template with your own
+  - Rename local.settings.json.template to local.settings.json
+- Build function app
+- Run locally or deploy to Azure
+  - If running locally
+    - Use ngrok or similar to expose your local endpoint
+      - ngrok http -host-header=localhost 7071
+  - If deploying to Azure
+    - Update app settings to include values from local.settings.json
+- Drop a supported audio file format in the audio container to kick off a transcription

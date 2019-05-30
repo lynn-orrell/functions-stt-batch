@@ -222,7 +222,12 @@ namespace Lo.BatchTranscription
             var blobClient = storageAccount.CreateCloudBlobClient();
             var audioContainer = blobClient.GetContainerReference("audio");
             var audioBlob = audioContainer.GetBlockBlobReference(Path.GetFileName(eventGridEvent.Subject));
-            var audioBlobSasToken = audioBlob.GetSharedAccessSignature(null, "AudioTranscriptionPolicy");
+
+            var sharedAccessBlobPolicy = new SharedAccessBlobPolicy();
+            sharedAccessBlobPolicy.SharedAccessExpiryTime = DateTimeOffset.UtcNow.AddDays(1);
+            sharedAccessBlobPolicy.Permissions = SharedAccessBlobPermissions.Read;
+
+            var audioBlobSasToken = audioBlob.GetSharedAccessSignature(sharedAccessBlobPolicy);
 
             var jsonData = eventGridEvent.Data as JObject;
             var url = (string)jsonData["url"];
